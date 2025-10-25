@@ -74,11 +74,12 @@ class MainActivity : AppCompatActivity() {
         val gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
             private val SWIPE_THRESHOLD = 100
             private val SWIPE_VELOCITY_THRESHOLD = 100
-            override fun onFling(e1: MotionEvent?, e2: MotionEvent?, velocityX: Float, velocityY: Float): Boolean {
-                if (e1 == null || e2 == null) return false
-                val diffX = e2.x - e1.x
-                val diffY = e2.y - e1.y
-                if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+            override fun onFling(
+                e1: MotionEvent?, e2: MotionEvent, velocityX: Float, velocityY: Float
+            ): Boolean {
+                val diffX = e2.x - (e1?.x ?: 0f)
+                val diffY = e2.y - (e1?.y ?: 0f)
+                if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 100 && Math.abs(velocityX) > 100) {
                     if (diffX > 0) onSwipeRight() else onSwipeLeft()
                     return true
                 }
@@ -204,12 +205,12 @@ class MainActivity : AppCompatActivity() {
 
                 is Finalize -> {
                     val cause = recordEvent.error
-                    if (cause != null) {
-                        Toast.makeText(this, "Recording error: ${cause.message}", Toast.LENGTH_LONG).show()
-                    } else {
-                        val savedUri = recordEvent.outputResults.outputUri
-                        Toast.makeText(this, "Saved: $savedUri", Toast.LENGTH_SHORT).show()
-                    }
+//                    if (cause != null) {
+//                        Toast.makeText(this, "Recording error: ${cause.message}", Toast.LENGTH_LONG).show()
+//                    } else {
+                    val savedUri = recordEvent.outputResults.outputUri
+                    Toast.makeText(this, "Saved: $savedUri", Toast.LENGTH_SHORT).show()
+//                    }
 
                     runOnUiThread {
                         recordBtn.text = "REC"
