@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 
     private val cameraExecutor: Executor by lazy { Executors.newSingleThreadExecutor() }
 
-    private val modes = listOf("VIDEO", "OTHER")
+    private val modes = listOf("ندى يحيى حسن عبدالرحمن", "OTHER")
     private var modeIndex = 0
 
     private val requiredPermissions = arrayOf(
